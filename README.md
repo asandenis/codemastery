@@ -27,6 +27,8 @@
 <ul style="list-style-type: square;">
   <li>Note taking appplication.</li>
   <li>Navigation between tabs.</li>
+  <li>Progress bar.</li>
+  <li>Code snippets.</li>
 </ul>
 
 <h2 id="technologies" style="color: #4A90E2;">🖥️ Technologies used</h2>
