@@ -14,18 +14,55 @@
         <div class="tabs-header">
             <div class="tab active" data-tab="ml-engineer" onclick="selectTab('ml-engineer')">
                 <h1 class="tab-title">Machine Learning/AI Engineer</h1>
-                <h3 class="tab-platform">codecademy</h3>
+                <a href="https://www.codecademy.com/learn/paths/machine-learning-engineer" target="_blank"><h3 class="tab-platform">codecademy</h3></a>
             </div>
             <div class="tab" data-tab="data-scientist" onclick="selectTab('data-scientist')">
                 <h1 class="tab-title">Data Scientist: Machine Learning Specialist</h1>
-                <h3 class="tab-platform">codecademy</h3>
+                <a href="https://www.codecademy.com/learn/paths/data-science" target="_blank"><h3 class="tab-platform">codecademy</h3></a>
             </div>
         </div>
         <div class="content">
             <div class="tab-content active" data-content="ml-engineer">
-                <p>This is content for the Machine Learning/AI Engineer tab.</p>
+                <h1>Machine Learning/AI Engineer</h1>
+                <div class="progress-bar">
+                    <div class="progress-bar-fulfilled-ml-engineer">9%</div>
+                </div>
+                <h2>Supervised vs Unsupervised Learning:</h2>
+                <ul>
+                    <li><b>Supervised Learning</b>: data is labeled and the program learns to predict the output from the input data.</li>
+                    <li><b>Unsupervised Learning</b>: data is unlabeled and the program learns to recognize the inherent structure or pattern in the input data.</li>
+                </ul>
+                <br>
+                <h2>Feature Engineering & Data Transformation:</h2>
+                <p>Features are measurable properties in a dataset, i.e. predictor variables.</p>
+                <ul>
+                    <li><b>Feature Transformation</b>: refers to transforming numerical data and to encode non-numerical variables. Some of these methods are: scaling, binning, logarithming transformations, hashing, and one hot encoding. It is udually used in order to improve performance, runtime and interpretability.</li>
+                    <li><b>Dimensionality Reduction</b>: refers to the reduction of the number of features within a dataset, therefore improving runtime, and often performance.</li>
+                    <li><b>Feature Selection</b>: refers to the different techniques used for choosing the features. Most of these techniques belong to one of these categories:
+                        <ol>
+                            <li><b>Filer methods</b>: Statistical techniques used to filter out useful features. These are <i>model agnostic</i>, meaning they can be used with any ML models. They include: correlation coefficients (Pearson, Spearman, etc.), chi^2, ANOVA, and Mutual Information calculations.</li>
+                            <li><b>Wrapper methods</b>: These methods use a <i>greedy search strategy</i> to pick the best set of features. They do this by picking a subset of features, training a model, evaluating it, and trying a different subset over and over again till a stopping criterion (either based on the number of features, or a model performance metric) is achieved. Some of these methods are: Forward Feature Selection, Backward Feature Elimination and Sequential Floating.</li>
+                            <li><b>Embedded methods</b>: These methods are implemented <i>during the model implementation step</i>. Regularization techniques such as Lasso or Ridge tweak the model to get it to generalize better to new and unknown data.</li>
+                        </ol>
+                    </li>
+                </ul>
+
+                <p><b>Natural Log Transformation</b> is used to allow the data to be closer to a <i>normal</i> distribution, as well as to decrease the range between the minimum and the maximum values of the dataset. This can help the model perform better. This kind of tranformation can only be applied if you have non-negative, parametric, and right-skewed data.</p>
+
+                <pre class="code-block">
+                    <code>
+                    <span class="keyword">import</span> <span class="variable">numpy</span> <span class="keyword">as</span> <span class="variable">np</span>
+                    
+                    <span class="variable">data</span>
+
+                    <span class="variable">log_data</span> = <span class="variable">np</span>.<span class="function">log</span>(<span class="variable">data</span>)
+                    </code>
+                </pre>  
+                
+                <p><b>Encoding Categorical Data</b>: // to de continued.</p>
             </div>
             <div class="tab-content" data-content="data-scientist">
+                <h1>Data Scientist: Machine Learning Specialist</h1>
                 <p>This lesson has not been yet started.</p>
             </div>
         </div>

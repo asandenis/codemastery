@@ -1,3 +1,19 @@
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #464646; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2b2b2b; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #252526; 
+}
+
 body {
     background-color: #252526;
     color: #ffffff;
@@ -15,6 +31,8 @@ body {
     align-items: center;
     display: flex;
     flex-direction: row;
+    position: fixed;
+    z-index: 2;
 }
 
 #logo {
@@ -40,6 +58,9 @@ body {
     overflow-y: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    position: fixed;
+    top: 60px;
+    z-index: 2;
 }
 
 .tabs-header::-webkit-scrollbar {
@@ -56,6 +77,10 @@ body {
     border-right: solid 1px #252526;
     justify-content: space-around;
     cursor: pointer;
+}
+
+.tab a {
+    text-decoration: none;
 }
 
 .tab:hover {
@@ -78,11 +103,19 @@ body {
     margin: 0;
     margin-left: 10px;
     cursor: pointer;
+    color: #ffffff;
+    text-decoration: none;
 }
 
 .tab-platform:hover {
     color: #534eda;
     text-decoration: underline;
+}
+
+.content {
+    position: relative;
+    top: 120px;
+    z-index: 1;
 }
 
 .tab-content {
@@ -92,4 +125,73 @@ body {
 
 .tab-content.active {
     display: block;
+}
+
+.progress-bar {
+    height: 10px;
+    width: 500px;
+    background-color: #2b2b2b;
+    border: #2b2b2b 1px solid;
+}
+
+.progress-bar-fulfilled-ml-engineer {
+    height: 100%;
+    width: 9%;
+    background-color: #534eda;
+    border-right: #322f92 1px solid;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 11px;
+}
+
+.tab-content li {
+    max-width: 950px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.tab-content p {
+    max-width: 950px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.code-block {
+    background-color: #1e1e1e;
+    border-radius: 4px;
+    color: #d4d4d4;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    overflow-x: auto;
+    max-width: 500px;
+    max-height: 400px;
+    white-space: pre-wrap;
+    line-height: 1em;
+    margin-top: 10px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.code-block::-webkit-scrollbar {
+    display: none;
+}
+
+.code-block .keyword {
+    color: #569cd6;
+}
+
+.code-block .function {
+    color: #dcdcaa;
+}
+
+.code-block .variable {
+    color: #9cdcfe;
+}
+
+.code-block .comment {
+    color: #6a9955;
+    font-style: italic;
 }
