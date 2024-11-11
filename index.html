@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>codemastery</title>
+        <link rel="icon" type="image/x-icon" href="/media/favicon.ico">
+        <link rel="stylesheet" href="style.css">
+        <script src="scripts.js"></script>
+    </head>
+    <body>
+        <div class="header">
+            <img id="logo" src="media/logo.png">
+            <h1 id="header-title">codemastery</h1>
+        </div>
+        <div class="tabs-header">
+            <div class="tab active" data-tab="ml-engineer" onclick="selectTab('ml-engineer')">
+                <h1 class="tab-title">Machine Learning/AI Engineer</h1>
+                <h3 class="tab-platform">codecademy</h3>
+            </div>
+            <div class="tab" data-tab="data-scientist" onclick="selectTab('data-scientist')">
+                <h1 class="tab-title">Data Scientist: Machine Learning Specialist</h1>
+                <h3 class="tab-platform">codecademy</h3>
+            </div>
+        </div>
+        <div class="content">
+            <div class="tab-content active" data-content="ml-engineer">
+                <p>This is content for the Machine Learning/AI Engineer tab.</p>
+            </div>
+            <div class="tab-content" data-content="data-scientist">
+                <p>This lesson has not been yet started.</p>
+            </div>
+        </div>
+    </body>
+</html>

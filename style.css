@@ -1,0 +1,95 @@
+body {
+    background-color: #252526;
+    color: #ffffff;
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    height: 60px;
+    width: 100%;
+    background-color: #464646;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+#logo {
+    width: 40px;
+    height: auto;
+    margin-left: 10px;
+}
+
+#header-title {
+    margin-left: 5px;
+    font-size: 20px;
+}
+
+.tabs-header {
+    height: 60px;
+    width: 100%;
+    background-color: #2b2b2b;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.tabs-header::-webkit-scrollbar {
+    display: none;
+}
+
+.tab {
+    height: 100%;
+    width: 200px;
+    min-width: 200px;
+    background-color: #2d2d2d;
+    display: flex;
+    flex-direction: column;
+    border-right: solid 1px #252526;
+    justify-content: space-around;
+    cursor: pointer;
+}
+
+.tab:hover {
+    background-color: #2b2b2b;
+}
+
+.tab.active {
+    background-color: #252526;
+}
+
+.tab-title {
+    font-size: 14px;
+    margin: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.tab-platform {
+    font-size: 10px;
+    margin: 0;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.tab-platform:hover {
+    color: #534eda;
+    text-decoration: underline;
+}
+
+.tab-content {
+    display: none;
+    padding: 10px;
+}
+
+.tab-content.active {
+    display: block;
+}
