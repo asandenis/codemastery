@@ -16,4 +16,18 @@ function selectTab(tabId) {
         selectedTab.classList.add('active');
         selectedContent.classList.add('active');
     }
-}
+};
+
+function displayChapter(chapterId) {
+    const chapterContent = document.getElementById(chapterId);
+
+    chapterContent.classList.toggle('open');
+
+    const chapterTitle = document.querySelector(`h2[onclick="displayChapter('${chapterId}')"]`);
+
+    if (chapterContent.classList.contains('open')) {
+        chapterTitle.innerHTML = chapterTitle.innerHTML.replace(/^►/, '▼');
+    } else {
+        chapterTitle.innerHTML = chapterTitle.innerHTML.replace(/^▼/, '►');
+    }
+};

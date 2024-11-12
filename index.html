@@ -27,39 +27,70 @@
                 <div class="progress-bar">
                     <div class="progress-bar-fulfilled-ml-engineer">9%</div>
                 </div>
-                <h2>Supervised vs Unsupervised Learning:</h2>
-                <ul>
-                    <li><b>Supervised Learning</b>: data is labeled and the program learns to predict the output from the input data.</li>
-                    <li><b>Unsupervised Learning</b>: data is unlabeled and the program learns to recognize the inherent structure or pattern in the input data.</li>
-                </ul>
-                <br>
-                <h2>Feature Engineering & Data Transformation:</h2>
-                <p>Features are measurable properties in a dataset, i.e. predictor variables.</p>
-                <ul>
-                    <li><b>Feature Transformation</b>: refers to transforming numerical data and to encode non-numerical variables. Some of these methods are: scaling, binning, logarithming transformations, hashing, and one hot encoding. It is udually used in order to improve performance, runtime and interpretability.</li>
-                    <li><b>Dimensionality Reduction</b>: refers to the reduction of the number of features within a dataset, therefore improving runtime, and often performance.</li>
-                    <li><b>Feature Selection</b>: refers to the different techniques used for choosing the features. Most of these techniques belong to one of these categories:
-                        <ol>
-                            <li><b>Filer methods</b>: Statistical techniques used to filter out useful features. These are <i>model agnostic</i>, meaning they can be used with any ML models. They include: correlation coefficients (Pearson, Spearman, etc.), chi^2, ANOVA, and Mutual Information calculations.</li>
-                            <li><b>Wrapper methods</b>: These methods use a <i>greedy search strategy</i> to pick the best set of features. They do this by picking a subset of features, training a model, evaluating it, and trying a different subset over and over again till a stopping criterion (either based on the number of features, or a model performance metric) is achieved. Some of these methods are: Forward Feature Selection, Backward Feature Elimination and Sequential Floating.</li>
-                            <li><b>Embedded methods</b>: These methods are implemented <i>during the model implementation step</i>. Regularization techniques such as Lasso or Ridge tweak the model to get it to generalize better to new and unknown data.</li>
-                        </ol>
-                    </li>
-                </ul>
+                <div class="table-of-contents">
+                    <h2 id="table-of-contents-title">Table of Contents</h2>
+                    <a href="#supervised-unsupervised-learning" id="table-of-contents-link">Supervised vs Unsupervised Learning</a>
+                    <a href="#feature-engineering-data-transformation" id="table-of-contents-link">Feature Engineering & Data Transformation</a>
+                    <a href="#supervised-learning-i" id="table-of-contents-link">Supervised Learning I</a>
+                </div>
+                <div class="chapter">
+                    <h2 id="supervised-unsupervised-learning" onclick="displayChapter('supervised-unsupervised-learning-chapter')">▼ Supervised vs Unsupervised Learning:</h2>
+                    <div class="chapter-content open" id="supervised-unsupervised-learning-chapter">
+                        <ul>
+                            <li><b>Supervised Learning</b>: data is labeled and the program learns to predict the output from the input data.</li>
+                            <li><b>Unsupervised Learning</b>: data is unlabeled and the program learns to recognize the inherent structure or pattern in the input data.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="chapter">
+                    <h2 id="feature-engineering-data-transformation" onclick="displayChapter('feature-engineering-data-transformation-chapter')">▼ Feature Engineering & Data Transformation:</h2>
+                    <div class="chapter-content open" id="feature-engineering-data-transformation-chapter">
+                        <p>Features are measurable properties in a dataset, i.e. predictor variables.</p>
+                        <ul>
+                            <li><b>Feature Transformation</b>: refers to transforming numerical data and to encoding non-numerical variables. Some of these methods are: scaling, binning, logarithming transformations, hashing, and one hot encoding. It is usually used in order to improve performance, runtime and interpretability.</li>
+                            <li><b>Dimensionality Reduction</b>: refers to the reduction of the number of features within a dataset, therefore improving runtime, and often performance.</li>
+                            <li><b>Feature Selection</b>: refers to the different techniques used for choosing the features. Most of these techniques belong to one of these categories:
+                                <ol>
+                                    <li><b>Filer methods</b>: Statistical techniques used to filter out useful features. These are <i>model agnostic</i>, meaning they can be used with any ML models. They include: correlation coefficients (Pearson, Spearman, etc.), chi^2, ANOVA, and Mutual Information calculations.</li>
+                                    <li><b>Wrapper methods</b>: These methods use a <i>greedy search strategy</i> to pick the best set of features. They do this by picking a subset of features, training a model, evaluating it, and trying a different subset over and over again till a stopping criterion (either based on the number of features, or a model performance metric) is achieved. Some of these methods are: Forward Feature Selection, Backward Feature Elimination and Sequential Floating.</li>
+                                    <li><b>Embedded methods</b>: These methods are implemented <i>during the model implementation step</i>. Regularization techniques such as Lasso or Ridge tweak the model to get it to generalize better to new and unknown data.</li>
+                                </ol>
+                            </li>
+                        </ul>
 
-                <p><b>Natural Log Transformation</b> is used to allow the data to be closer to a <i>normal</i> distribution, as well as to decrease the range between the minimum and the maximum values of the dataset. This can help the model perform better. This kind of tranformation can only be applied if you have non-negative, parametric, and right-skewed data.</p>
+                        <p><b>Natural Log Transformation</b> is used to allow the data to be closer to a <i>normal</i> distribution, as well as to decrease the range between the minimum and the maximum values of the dataset. This can help the model perform better. This kind of tranformation can only be applied if you have non-negative, parametric, and right-skewed data.</p>
 
-                <pre class="code-block">
-                    <code>
-                    <span class="keyword">import</span> <span class="variable">numpy</span> <span class="keyword">as</span> <span class="variable">np</span>
-                    
-                    <span class="variable">data</span>
+                        <pre class="code-block">
+                            <code>
+                            <span class="keyword">import</span> <span class="variable">numpy</span> <span class="keyword">as</span> <span class="variable">np</span>
+                            
+                            <span class="variable">data</span>
 
-                    <span class="variable">log_data</span> = <span class="variable">np</span>.<span class="function">log</span>(<span class="variable">data</span>)
-                    </code>
-                </pre>  
-                
-                <p><b>Encoding Categorical Data</b>: // to de continued.</p>
+                            <span class="variable">log_data</span> = <span class="variable">np</span>.<span class="function">log</span>(<span class="variable">data</span>)
+                            </code>
+                        </pre>  
+                        
+                        <p><b>Encoding Categorical Data</b>: // to de continued.</p>
+                    </div>
+                </div>
+                <div class="chapter">
+                    <h2 id="supervised-learning-i" onclick="displayChapter('supervised-learning-i-chapter')">▼ Supervised Learning I:</h2>
+                    <div class="chapter-content open" id="supervised-learning-i-chapter">
+                        <p><b>Regression vs Classification</b>: // to be continued.</p>
+
+                        <p><b>Linear Regression</b>: // to be continued.</p>
+
+                        <br>
+                        <p><b>Project</b>:</p>
+                        <div class="project">
+                            <img src="https://i.imgur.com/HNTzXgQ.png" id="project-logo">
+                            <div class="project-content">
+                                <a href="https://github.com/asandenis/Pneumatix-Pneumonia-Detection-CNN-Model" target="_blank"><p><b>Pneumatix</b>: A Pneumonia Detection Convolutional Neural Network</p></a>
+                                <p>A Convolutional Neural Network that detects pneumonia from x-ray lung images, and a Flask application.<br>* While it is not a Linear Regression Model, this was my first Machine Learning Project.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="tab-content" data-content="data-scientist">
                 <h1>Data Scientist: Machine Learning Specialist</h1>

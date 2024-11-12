@@ -28,7 +28,10 @@
   <li>Note taking appplication.</li>
   <li>Navigation between tabs.</li>
   <li>Progress bar.</li>
+  <li>Table of Contents.</li>
+  <li>Expansion and contraction of chapters.</li>
   <li>Code snippets.</li>
+  <li>Projects containers.</li>
 </ul>
 
 <h2 id="technologies" style="color: #4A90E2;">🖥️ Technologies used</h2>
