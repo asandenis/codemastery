@@ -25,7 +25,7 @@
             <div class="tab-content active" data-content="ml-engineer">
                 <h1>Machine Learning/AI Engineer</h1>
                 <div class="progress-bar">
-                    <div class="progress-bar-fulfilled-ml-engineer">9%</div>
+                    <div class="progress-bar-fulfilled-ml-engineer">11%</div>
                 </div>
                 <div class="table-of-contents">
                     <h2 id="table-of-contents-title">Table of Contents</h2>
@@ -128,8 +128,8 @@
                                     <br><br>
                                     <span class="variable">cars</span>[<span class="value">'color'</span>] = <span class="variable">cars</span>[<span class="value">'color'</span>].<span class="function">cat</span>.<span class="function">codes</span>
                                     <br><br>
-                                    <span class="keyword">print</span>(<span class="variable">cars</span>[<span class="value">'color'</span>].<span class="function">value_counts</span>()[:<span class="variable">5</span>])
-                                    <span class="comment">#OUTPUT</span>
+                                    <span class="keyword">print</span>(<span class="variable">cars</span>[<span class="value">'color'</span>].<span class="function">value_counts</span>()[:<span class="variable">5</span>])<br>
+                                    <span class="comment">#OUTPUT</span><br>
                                     <span class="comment"># 2     2015<br># 18    1931<br># 8     1506<br># 15    1503<br># 3      869</span>
                                     </code>
                                 </pre>
@@ -210,8 +210,8 @@
                                         <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">hour</span><br>
                                         <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">minute</span><br>
                                         <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">second</span><br>
-                                        <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">week</span> <span class="comment">#The week ordinal of the year</span><br>
-                                        <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">dayofweek</span> <span class="comment">#The day of the week (Monday = 0 & Sunday = 6)</span>
+                                        <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">week</span> <span class="comment">#The week ordinal of the year.</span><br>
+                                        <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">dayofweek</span> <span class="comment">#The day of the week (Monday = 0 & Sunday = 6).</span>
                                     </code>
                                 </pre>
                             </li>
@@ -374,10 +374,128 @@
                         </div>
 
                         <br>
-                        <h3>Up to date.</h3>
+
+                        <p><b>Multiple Linear Regression</b>: takes simple Linear Regression to the next level by allowing multiple <i>independent variables</i> to influence the <i>dependent variable</i>, not only one.</p>
+                        <p>It's formula is the following:</p>
+                        <p id="math">y=b+m₁x₁+m₂x₂+...+mₙxₙ</p>
+
                         <br>
 
-                        <p><b>Multiple Linear Regression</b>: // to be continued.</p>
+                        <p><b>Training and Test sets</b>: those are partitions of the datasets used specifically for training the model, respectively to test the model's performance to provide an unbiased evaluation of it.</p>
+                        <p>A general rule of thumb when splitting the initial dataset would be that the training set should have around 80% of the initial data, while the test set should have around 20%.</p>
+
+                        <br>
+                        
+                        <p>If we divide the initial dataset in two variable: x and y, where y is the dependent variable, and x is a numpy array of the independent variables, we can automatically split this data into a training and a test set using <i>train_test_split</i> as follows:</p>
+                        <pre class="code-block">
+                            <code>
+                                <span class="keyword">from</span> <span class="variable">sklearn</span>.<span class="function">model_selection</span> <span class="keyword">import</span> <span class="variable">train_test_split</span>
+                                <br><br>
+                                <span class="variable">x_train</span>, <span class="variable">x_test</span>, <span class="variable">y_train</span>, <span class="variable">y_test</span> = <span class="variable">train_test_split</span>(<span class="variable">x</span>, <span class="variable">y</span>, <span class="variable">train_size</span>=<span class="variable">0.8</span>, <span class="variable">test_size</span>=<span class="variable">0.2</span>, <span class="variable">random_state</span>=<span class="variable">6</span>)
+                            </code>
+                        </pre>
+                        <p>The <i>random_state</i> is used in order to create a seed, so that if you need to always have the same split, you can get it by having the same seed set.</p>
+
+                        <br>
+
+                        <p>Building and training a Multiple Linear Regression Model using scikit-learn:</p>
+                        <pre class="code-block">
+                            <code>
+                                <span class="keyword">from</span> <span class="variable">sklearn</span>.<span class="function">linear_model</span> <span class="keyword">import</span> <span class="variable">LinearRegression</span>
+                                <br><br>
+                                <span class="variable">mlr</span> = <span class="variable">LinearRegression</span>()
+                                <br><br>
+                                <span class="variable">mlr</span>.<span class="function">fit</span>(<span class="variable">x_train</span>, <span class="variable">y_train</span>)
+                                <br><br>
+                                <span class="variable">y_predicted</span> = <span class="variable">mlr</span>.<span class="function">predict</span>(<span class="variable">x_test</span>) <span class="comment"># Or any data from which you want to predict the dependent variable.</span>
+                            </code>
+                        </pre>
+
+                        <br>
+
+                        <p>Using Matplotlib to create a 2D scatterplot:</p>
+                        <pre class="code-block">
+                            <code>
+                                <span class="keyword">import</span> <span class="variable">matplotlib</span>.<span class="function">pyplot</span> <span class="keyword">as</span> <span class="variable">plt</span>
+                                <br><br>
+                                <span class="variable">plt</span>.<span class="function">scatter</span>(<span class="variable">x</span>, <span class="variable">y</span>, <span class="variable">alpha</span>=<span class="variable">0.5</span>) <span class="comment"># Alpha is used to determine the opacity of the points of the graph from 0 (0%) to 1 (100%).</span>
+                                <br><br>
+                                <span class="variable">plt</span>.<span class="function">xlabel</span>(<span class="value">"the x-axis label"</span>)
+                                <br>
+                                <span class="variable">plt</span>.<span class="function">ylabel</span>(<span class="value">"the y-axis label"</span>)
+                                <br><br>
+                                <span class="variable">plt</span>.<span class="function">title</span>(<span class="value">"plot title"</span>)
+                                <br><br>
+                                <span class="variable">plt</span>.<span class="function">show</span>()
+                            </code>
+                        </pre>
+
+                        <p>Reminder, the mathematical formula is:</p>
+                        <p id="math">y=b+m₁x₁+m₂x₂+...+mₙxₙ</p>
+                        <p>where b is the intercept, and m₁, m₂, ..., mₙ are the coefficients.</p>
+                        
+                        <br>
+
+                        <p>sklearn's model offers us two relevant pieces of data, the coefficients and the intercept:</p>
+                        <pre class="code-block">
+                            <code>
+                                <span class="variable">mlr</span>.<span class="function">coef_</span>
+                                <br>
+                                <span class="variable">mlr</span>.<span class="function">intercept_</span>
+                            </code>
+                        </pre>
+
+                        <p>The larger the module of the coefficient is, the more it influences the dependent variable, and it's sign (+ or -) decide if the influence is a positive or a negative one.</p>
+
+                        <br>
+                        
+                        <p>To see the way a coefficent influences the dependent variable, we can plot them together. If the trend is upward, there is a positive linear relationship, and when there is a downward trend, there is a negative linear relationship. If there is no trend, there is no linear relationship or influence between the two variables.</p>
+
+                        <br>
+
+                        <p>To evaluate a Multiple Linear Regression model's accuracy we can use one of the following tests:</p>
+                        <ol>
+                            <li>
+                                <p><b>Residual Analysis</b>: calculating the difference between the actual y value, and the predicted y' value, using the following formula:</p>
+                                <p id="math">e=y-y'</p>
+                                <p>The lower the <i>residual e</i> is, the better the model performs.</p>
+                            </li>
+                            <li>
+                                <p><b>The coefficient R²</b> is defined as:</p>
+                                <p id="math">1-
+                                    <math>
+                                        <mfrac>
+                                          <mn>u</mn>
+                                          <mi>v</mi>
+                                        </mfrac>
+                                    </math>
+                                </p>
+                                <p>where u is the residual sum of squares:</p>
+                                <pre class="code-block">
+                                    <code>
+                                        ((<span class="variable">y</span> - <span class="variable">y_predict</span>) ** <span class="variable">2</span>).<span class="function">sum</span>()
+                                    </code>
+                                </pre>
+                                <p>and v is the total sum of squares (or TSS):</p>
+                                <pre class="code-block">
+                                    <code>
+                                        ((<span class="variable">y</span> - <span class="variable">y</span>.<span class="function">mean</span>()) ** <span class="variable">2</span>).<span class="function">sum</span>()
+                                    </code>
+                                </pre>
+                                <p>R² can take both positive and negative values, however it cannot excced 1. It basically tells us to what extent (or percentage) the independent variables we chose explain the dependent variable. The closer R² is to 1, the better. Usually a R² of 0.7 or upper is considered good.</p>
+
+                                <br>
+
+                                <p>scikit-learn gives us the <i>score()</i> function that calculates R² automatically:</p>
+                                <pre class="code-block">
+                                    <code>
+                                        <span class="variable">mlr</span>.<span class="function">score</span>(<span class="variable">x_train</span>, <span class="variable">y_train</span>)
+                                        <br>
+                                        <span class="variable">mlr</span>.<span class="function">score</span>(<span class="variable">x_test</span>, <span class="variable">y_test</span>)
+                                    </code>
+                                </pre>
+                            </li>
+                        </ol>
                     </div>
                 </div>
             </div>
