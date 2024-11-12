@@ -63,23 +63,306 @@
                         <pre class="code-block">
                             <code>
                             <span class="keyword">import</span> <span class="variable">numpy</span> <span class="keyword">as</span> <span class="variable">np</span>
-                            
+                            <br><br>
                             <span class="variable">data</span>
-
+                            <br><br>
                             <span class="variable">log_data</span> = <span class="variable">np</span>.<span class="function">log</span>(<span class="variable">data</span>)
                             </code>
                         </pre>  
                         
-                        <p><b>Encoding Categorical Data</b>: // to de continued.</p>
+                        <p><b>Encoding Categorical Data</b> can be of two types:</p>
+                        <ol>
+                            <li>Nominal data, or data that has no order or hierarchy to it.</li>
+                            <li>Ordinal data, or data that have order, but the differences between the categories are either not important or unclear.</li>
+                        </ol>
+
+                        <p>The type of such data is usually an <i>object</i>, so it is either text or a mixture between text and numerical values.</p>
+
+                        <pre class="code-block">
+                            <code>
+                            <span class="variable">data</span>
+                            <br><br>
+                            <span class="function">print</span>(<span class="variable">data</span>.<span class="function">dtypes</span>)
+                            <br><br>
+                            <span class="comment">#OUTPUT</span>
+                            <br><br>
+                            <span class="comment">#data    object</span>
+                            </code>
+                        </pre>
+
+                        <p><b>Transforming categorical data</b> into numerical values can be done in multiple ways, some of which are:</p>
+                        <ul>
+                            <li>
+                                <p><b>Ordinal encoding</b></p>
+                                <p>This can only be applied to ordinal data, and it implies assigning a numerical value to each category.</p>
+                                <p>Example: the ratings of a product on an E-Commerce Platform.</p>
+                                <p>First way we can take: manually assign the values through a dictionary, just like this:</p>
+                                <pre class="code-block">
+                                    <code>
+                                    <span class="variable">rating_dict</span> = { <span class="value">'Excellent'</span>:<span class="variable">5</span>, <span class="value">'New'</span>:<span class="variable">4</span>, <span class="value">'Like new'</span>:<span class="variable">3</span>, <span class="value">'Good'</span>:<span class="variable">2</span>, <span class="value">'Fair'</span>:<span class="variable">1</span>}
+                                    <br><br>
+                                    <span class="variable">data</span> = <span class="variable">data</span>.<span class="function">map</span>(<span class="variable">rating_dict</span>)
+                                    </code>
+                                </pre>
+                                <p>The second approach we can take is to use sklearn.preprocessing's OrdinalEncoder library, as such:</p>
+                                <pre class="code-block">
+                                    <code>
+                                    <span class="keyword">from</span> <span class="variable">sklearn</span>.<span class="function">preprocessing</span> <span class="keyword">import</span> <span class="variable">OrdinalEncoder</span>
+                                    <br><br>
+                                    <span class="variable">encoder</span> = <span class="variable">OrdinalEncoder</span>(<span class="variable">categories</span>=[[<span class="value">'Excellent'</span>, <span class="value">'New'</span>, <span class="value">'Like New'</span>, <span class="value">'Good'</span>, <span class="value">'Fair'</span>]])
+                                    <br><br>
+                                    <span class="variable">data_reshaped</span> = <span class="variable">data</span>.<span class="function">values</span>.<span class="function">reshape</span>(<span class="variable">-1</span>, <span class="variable">1</span>)
+                                    <br><br>
+                                    <span class="variable">data_transformed</span> = <span class="variable">data</span>.<span class="function">fit_transform</span>(<span class="variable">data_reshaped</span>)
+                                    </code>
+                                </pre>
+                            </li>
+                            <li>
+                                <p><b>Label Encoding</b></p>
+                                <p>Label Encoding is used for nominal data, and the idea behind this technique is to assign a number (or code) to each category. This can raise some problems, as the model can interpret a characteristic as more important, or give it more weight, as it's number/code is greater than another. This can be, however, resolved by using <i>One-hot Encoding</i>.</p>
+                                <p>Example: the colors of a group of cars.</p>
+                                <p>First approach we can take is to convert the feature from an <i>object</i> type to a <i>categories</i> one, like this:</p>
+                                <pre class="code-block">
+                                    <code>
+                                    <span class="variable">cars</span>[<span class="value">'color'</span>] = <span class="variable">cars</span>[<span class="value">'color'</span>].<span class="function">astype</span>(<span class="value">'category'</span>)
+                                    <br><br>
+                                    <span class="variable">cars</span>[<span class="value">'color'</span>] = <span class="variable">cars</span>[<span class="value">'color'</span>].<span class="function">cat</span>.<span class="function">codes</span>
+                                    <br><br>
+                                    <span class="keyword">print</span>(<span class="variable">cars</span>[<span class="value">'color'</span>].<span class="function">value_counts</span>()[:<span class="variable">5</span>])
+                                    <span class="comment">#OUTPUT</span>
+                                    <span class="comment"># 2     2015<br># 18    1931<br># 8     1506<br># 15    1503<br># 3      869</span>
+                                    </code>
+                                </pre>
+                                <p>The second one is using the LabelEncoder library of sklearn.preprocessing, as below:</p>
+                                <pre class="code-block">
+                                    <code>
+                                    <span class="keyword">from</span> <span class="variable">sklearn</span>.<span class="function">preprocessing</span> <span class="keyword">import</span> <span class="variable">LabelEncoder</span>
+                                    <br><br>
+                                    <span class="variable">encoder</span> = <span class="variable">LabelEncoder</span>()
+                                    <br><br>
+                                    <span class="variable">cars</span>[<span class="value">'color'</span>] = <span class="variable">encoder</span>.<span class="function">fit_transform</span>(<span class="variable">cars</span>[<span class="value">'color'</span>])
+                                    </code>
+                                </pre>
+                            </li>
+                            <li>
+                                <p><b>One-hot Encoding</b></p>
+                                <p>This is used in order to solve the problem that arises with Label Encoding, and it does that by creating <i>dummy variables</i> that take either 1 or 0 numerical values for each category. The issue with this approach is that it can easily create a huge amount of features.</p>
+                                <pre class="code-block">
+                                    <code>
+                                    <span class="keyword">import</span> <span class="variable">pandas</span> <span class="keyword">as</span> <span class="variable">pd</span>
+                                    <br><br>
+                                    <span class="variable">ohe</span> = <span class="variable">pd</span>.<span class="function">get_dummies</span>(<span class="variable">cars</span>[<span class="value">'color'</span>])
+                                    <br><br>
+                                    <span class="variable">cars</span> = <span class="variable">cars</span>.<span class="function">join</span>(<span class="variable">ohe</span>)
+                                    </code>
+                                </pre>
+                            </li>
+                            <li>
+                                <p><b>Binary Encoding</b></p>
+                                <p>Similar to One-hot Encoding, Binary Encoding comes to solve the issues other techniques have, however, this time it's about One-hot Encoding. In order to minimize the amount of features, it creates the representation in binary of each category.</p>
+                                <p>For example, if we have 19 colors, instead of creating 19 features, it assigns to each color a number (blue = 1, green = 2, red = 3, etc.) and then it represents these numbers in binary (1 = 1, 2 = 10, 3 = 11, ..., 19 = 10011). As there are 5 digits for 19 numbers, we can use only 5 features, each taking either a 1 or a 0.</p>
+                                <pre class="code-block">
+                                    <code>
+                                    <span class="keyword">from</span> <span class="variable">category_encoders</span> <span class="keyword">import</span> <span class="variable">BinaryEncoder</span>
+                                    <br><br>
+                                    <span class="variable">colors</span> = <span class="variable">BinaryEncoder</span>(<span class="variable">cols</span> = [<span class="value">'color'</span>], <span class="variable">drop_invariant</span> = <span class="keyword">True</span>).<span class="function">fit_transform</span>(<span class="variable">cars</span>)
+                                    </code>
+                                </pre>
+                            </li>
+                            <li>
+                                <p><b>Hashing</b></p>
+                                <p>Similar to One-hot Encoding, Hashing creates new features, however it allows us to input the number of features we want to create, which can reduce dimensionality. However this comes with a new problem, that of mapping categories to the same values, an issue called <i>collision</i>.</p>
+                                <p>Having 19 colors, if we create through Hashing only 5 new features, we will definitely have some colors with the same hash values, so the model will not be able to differentiate between them.</p>
+                                <pre class="code-block">
+                                    <code>
+                                    <span class="keyword">from</span> <span class="variable">category_encoders</span> <span class="keyword">import</span> <span class="variable">HashingEncoder</span>
+                                    <br><br>
+                                    <span class="variable">encoder</span> = <span class="variable">HashingEncoder</span>(<span class="variable">cols</span>=<span class="value">'color'</span>, <span class="variable">n_components</span>=<span class="variable">5</span>)
+                                    <br><br>
+                                    <span class="variable">hash_results</span> = <span class="variable">encoder</span>.<span class="function">fit_transform</span>(<span class="variable">cars</span>[<span class="value">'color'</span>])
+                                    </code>
+                                </pre>
+                            </li>
+                            <li>
+                                <p><b>Target Encoding</b></p>
+                                <p>Target Encoding, also called Mean Encoding, refers to the technique of calculating the mean of a specific numerical feature based on the entities that have the same non-numerical value, in proportion to the overall mean.</p>
+                                <p>For example, for the colors, we can find the mean of the car's prices per color combined with the mean of all the cars prices.</p>
+                                <pre class="code-block">
+                                    <code>
+                                    <span class="keyword">from</span> <span class="variable">category_encoders</span> <span class="keyword">import</span> <span class="variable">TargetEncoder</span>
+                                    <br><br>
+                                    <span class="variable">encoder</span> = <span class="variable">TargetEncoder</span>(<span class="variable">cols</span>=<span class="value">'color'</span>)
+                                    <br><br>
+                                    <span class="variable">encoder_results</span> = <span class="variable">encoder</span>.<span class="function">fit_transform</span>(<span class="variable">cars</span>[<span class="value">'color'</span>], <span class="variable">cars</span>[<span class="value">'sellingprice'</span>])
+                                    </code>
+                                </pre>
+                            </li>
+                            <li>
+                                <p><b>Date-time Encoding</b></p>
+                                <p>This one is used to convert date-time objects to numerical ones. Some ways to o this is to extract only the year, month, day, etc out of the date-time.</p>
+                                <pre class="code-block">
+                                    <code>
+                                        <span class="comment">#Assuming df['datetime'] is a date-time object:</span>
+                                        <br><br>
+                                        <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">year</span><br>
+                                        <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">month</span><br>
+                                        <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">day</span><br>
+                                        <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">hour</span><br>
+                                        <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">minute</span><br>
+                                        <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">second</span><br>
+                                        <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">week</span> <span class="comment">#The week ordinal of the year</span><br>
+                                        <span class="variable">df</span>[<span class="value">'datetime</span>].<span class="function">dt</span>.<span class="function">dayofweek</span> <span class="comment">#The day of the week (Monday = 0 & Sunday = 6)</span>
+                                    </code>
+                                </pre>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="chapter">
                     <h2 id="supervised-learning-i" onclick="displayChapter('supervised-learning-i-chapter')">▼ Supervised Learning I:</h2>
                     <div class="chapter-content open" id="supervised-learning-i-chapter">
-                        <p><b>Regression vs Classification</b>: // to be continued.</p>
+                        <p><b>Regression vs Classification</b>:</p>
+                        <ul>
+                            <li><p><b>Regression</b>: is used to predict outputs that are continous, such as the height a plant will have based on the amount of rainfall.</p></li>
+                            <li><p><b>Classification</b>: is used to predict a discrete label, having a finite set of possible outcomes. Most have only two possible outcomes (i.e. whether it will rain or not), but it can have multiple labels as well (i.e. what species of animal is present in an image).</p></li>
+                        </ul>
 
-                        <p><b>Linear Regression</b>: // to be continued.</p>
+                        <p><b>Linear Regression</b>: tries to find the best line (<i>slope</i> and <i>intercept</i>, or position) that matches as closely as possible the data points derived from two variables, therefore being able to utilize that line to predict the value of one variable starting from a new, unknown value of the other.</p>
+                        <br>
+                        <p>The formula of a linear function:</p>
+                        <p id="math">y=mx+b</p>
+                        <p>where m is the slope and b is the intercept.</p>
+                        <br>
+                        <p>The <i>loss</i> (or error) of the model can be calculated as the sum of the loss (squared distance) of all the available points.</p>
+                        <p id="math">Σ(lᵢ)</p>
+                        <p>where:</p>
+                        <p id="math">lᵢ = (distance to the line)²</p>
+                        <br>
+                        <p>The goal of a linear regression model is to find the slope and intercept pair that minimizes loss on average across all of the data.</p>
+                        <p>In order to find the best pair, we use a <i>gradient descent</i> for each element of the pair. Here are the mathematical formulas for both:</p>
+                        <ul>
+                            <li>
+                                <p>Gradient Descent for Intercept:</p>
+                                <p id="math">−
+                                    <math>
+                                    <mfrac>
+                                      <mn>2</mn>
+                                      <mi>N</mi>
+                                    </mfrac>
+                                  </math>
+                                Σ(yᵢ-(mxᵢ+b))</p>
+                                <p>where N is the number of points in our dataset, m is the current gradient guess and b is the current intercept guess.</p>
+                            </li>
+                            <li>
+                                <p>Gradient Descent for Slope:</p>
+                                <p id="math">−
+                                    <math>
+                                    <mfrac>
+                                      <mn>2</mn>
+                                      <mi>N</mi>
+                                    </mfrac>
+                                  </math>
+                                Σxᵢ(yᵢ-(mxᵢ+b))</p>
+                            </li>
+                        </ul>
 
+                        <p>To take a step on a gradient slope, we can use the following formula:</p>
+                        <pre class="code-block">
+                            <code>
+                                <span class="variable">new_value</span> = <span class="variable">current_value</span> - (<span class="variable">learning_rate</span> * <span class="variable">gradient</span>)
+                            </code>
+                        </pre>
+                        <p>where current_variable is the guess we have for either the <i>slope</i>, or the <i>intercept</i>, and the learning_rate is a variable we set proportional to the size of the step we want to take. This step should not be too small, nor too big, so that we do not have to take too many steps, or even worse, to overshoot the minimum loss. </p>
+
+                        <p>Convergence refers to the moment loss stops changing or changes very slowly.</p>
+
+                        <pre class="code-block">
+                            <code>
+                            <span class="keyword">import</span> <span class="variable">matplotlib.pyplot</span> <span class="keyword">as</span> <span class="variable">plt</span>
+                            <br><br>
+                            <span class="keyword">def</span> <span class="function">get_gradient_at_b</span>(<span class="variable">x</span>, <span class="variable">y</span>, <span class="variable">b</span>, <span class="variable">m</span>):
+                              <br>&nbsp;&nbsp;<span class="variable">N</span> = <span class="function">len</span>(<span class="variable">x</span>)
+                              <br>&nbsp;&nbsp;<span class="variable">diff</span> = <span class="value">0</span>
+                              <br>&nbsp;&nbsp;<span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="variable">N</span>):
+                              <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">x_val</span> = <span class="variable">x</span>[<span class="variable">i</span>]
+                              <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">y_val</span> = <span class="variable">y</span>[<span class="variable">i</span>]
+                              <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">diff</span> += (<span class="variable">y_val</span> - ((<span class="variable">m</span> * <span class="variable">x_val</span>) + <span class="variable">b</span>))
+                              <br>&nbsp;&nbsp;<span class="variable">b_gradient</span> = -(<span class="value">2</span>/<span class="variable">N</span>) * <span class="variable">diff</span>  
+                              <br>&nbsp;&nbsp;<span class="keyword">return</span> <span class="variable">b_gradient</span>
+                              <br><br>
+                        
+                            <span class="keyword">def</span> <span class="function">get_gradient_at_m</span>(<span class="variable">x</span>, <span class="variable">y</span>, <span class="variable">b</span>, <span class="variable">m</span>):
+                              <br>&nbsp;&nbsp;<span class="variable">N</span> = <span class="function">len</span>(<span class="variable">x</span>)
+                              <br>&nbsp;&nbsp;<span class="variable">diff</span> = <span class="value">0</span>
+                              <br>&nbsp;&nbsp;<span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="variable">N</span>):
+                              <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">x_val</span> = <span class="variable">x</span>[<span class="variable">i</span>]
+                              <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">y_val</span> = <span class="variable">y</span>[<span class="variable">i</span>]
+                              <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">diff</span> += <span class="variable">x_val</span> * (<span class="variable">y_val</span> - ((<span class="variable">m</span> * <span class="variable">x_val</span>) + <span class="variable">b</span>))
+                              <br>&nbsp;&nbsp;<span class="variable">m_gradient</span> = -(<span class="value">2</span>/<span class="variable">N</span>) * <span class="variable">diff</span>  
+                              <br>&nbsp;&nbsp;<span class="keyword">return</span> <span class="variable">m_gradient</span>
+                              <br><br>
+                        
+                            <span class="keyword">def</span> <span class="function">step_gradient</span>(<span class="variable">b_current</span>, <span class="variable">m_current</span>, <span class="variable">x</span>, <span class="variable">y</span>, <span class="variable">learning_rate</span>):
+                              <br>&nbsp;&nbsp;<span class="variable">b_gradient</span> = <span class="function">get_gradient_at_b</span>(<span class="variable">x</span>, <span class="variable">y</span>, <span class="variable">b_current</span>, <span class="variable">m_current</span>)
+                              <br>&nbsp;&nbsp;<span class="variable">m_gradient</span> = <span class="function">get_gradient_at_m</span>(<span class="variable">x</span>, <span class="variable">y</span>, <span class="variable">b_current</span>, <span class="variable">m_current</span>)
+                              <br>&nbsp;&nbsp;<span class="variable">b</span> = <span class="variable">b_current</span> - (<span class="variable">learning_rate</span> * <span class="variable">b_gradient</span>)
+                              <br>&nbsp;&nbsp;<span class="variable">m</span> = <span class="variable">m_current</span> - (<span class="variable">learning_rate</span> * <span class="variable">m_gradient</span>)
+                              <br>&nbsp;&nbsp;<span class="keyword">return</span> [<span class="variable">b</span>, <span class="variable">m</span>]
+                              <br><br>
+                        
+                            <span class="keyword">def</span> <span class="function">gradient_descent</span>(<span class="variable">x</span>, <span class="variable">y</span>, <span class="variable">learning_rate</span>, <span class="variable">num_iterations</span>):
+                              <br>&nbsp;&nbsp;<span class="variable">b</span> = <span class="value">0</span>
+                              <br>&nbsp;&nbsp;<span class="variable">m</span> = <span class="value">0</span>
+                              <br>&nbsp;&nbsp;<span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="variable">num_iterations</span>):
+                              <br>&nbsp;&nbsp;&nbsp;&nbsp;[<span class="variable">b</span>, <span class="variable">m</span>] = <span class="function">step_gradient</span>(<span class="variable">b</span>, <span class="variable">m</span>, <span class="variable">x</span>, <span class="variable">y</span>, <span class="variable">learning_rate</span>)
+                              <br>&nbsp;&nbsp;<span class="keyword">return</span> <span class="variable">b</span>, <span class="variable">m</span>
+                              <br><br>
+                        
+                            <span class="variable">months</span> = [<span class="value">1</span>, <span class="value">2</span>, <span class="value">3</span>, <span class="value">4</span>, <span class="value">5</span>, <span class="value">6</span>, <span class="value">7</span>, <span class="value">8</span>, <span class="value">9</span>, <span class="value">10</span>, <span class="value">11</span>, <span class="value">12</span>]
+                            <br><span class="variable">revenue</span> = [<span class="value">52</span>, <span class="value">74</span>, <span class="value">79</span>, <span class="value">95</span>, <span class="value">115</span>, <span class="value">110</span>, <span class="value">129</span>, <span class="value">126</span>, <span class="value">147</span>, <span class="value">146</span>, <span class="value">156</span>, <span class="value">184</span>]
+                            <br><br>
+                        
+                            <span class="variable">b</span>, <span class="variable">m</span> = <span class="function">gradient_descent</span>(<span class="variable">months</span>, <span class="variable">revenue</span>, <span class="value">0.01</span>, <span class="value">1000</span>)
+                            <br><span class="variable">y</span> = [<span class="variable">m</span>*<span class="variable">x</span> + <span class="variable">b</span> <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="variable">months</span>]
+                            <br><br>
+                        
+                            <span class="variable">plt</span>.<span class="function">plot</span>(<span class="variable">months</span>, <span class="variable">revenue</span>, <span class="value">"o"</span>)
+                            <br><span class="variable">plt</span>.<span class="function">plot</span>(<span class="variable">months</span>, <span class="variable">y</span>)
+                            <br><span class="variable">plt</span>.<span class="function">show</span>()
+                            </code>
+                        </pre>
+                        
+                        <p>We can also use sklearn.linear_model's LinearRegression, as such:</p>
+
+                        <pre class="code-block">
+                            <code>
+                            <span class="keyword">from</span> <span class="variable">sklearn.linear_model</span> <span class="keyword">import</span> <span class="variable">LinearRegression</span>
+                            <br><span class="keyword">import</span> <span class="variable">matplotlib.pyplot</span> <span class="keyword">as</span> <span class="variable">plt</span>
+                            <br><span class="keyword">import</span> <span class="variable">numpy</span> <span class="keyword">as</span> <span class="variable">np</span>
+                            <br><br>
+                        
+                            <span class="variable">temperature</span> = <span class="variable">np</span>.<span class="function">array</span>(<span class="function">range</span>(<span class="value">60</span>, <span class="value">100</span>, <span class="value">2</span>))
+                            <br><span class="variable">temperature</span> = <span class="variable">temperature</span>.<span class="function">reshape</span>(-<span class="value">1</span>, <span class="value">1</span>)
+                            <br><span class="variable">sales</span> = [<span class="value">65</span>, <span class="value">58</span>, <span class="value">46</span>, <span class="value">45</span>, <span class="value">44</span>, <span class="value">42</span>, <span class="value">40</span>, <span class="value">40</span>, <span class="value">36</span>, <span class="value">38</span>, <span class="value">38</span>, <span class="value">28</span>, <span class="value">30</span>, <span class="value">22</span>, <span class="value">27</span>, <span class="value">25</span>, <span class="value">25</span>, <span class="value">20</span>, <span class="value">15</span>, <span class="value">5</span>]
+                            <br><br>
+                        
+                            <span class="variable">line_fitter</span> = <span class="variable">LinearRegression</span>()
+                            <br><br>
+                        
+                            <span class="variable">line_fitter</span>.<span class="function">fit</span>(<span class="variable">temperature</span>, <span class="variable">sales</span>)
+                            <br><br>
+                        
+                            <span class="variable">sales_predict</span> = <span class="variable">line_fitter</span>.<span class="function">predict</span>(<span class="variable">temperature</span>)
+                            <br><br>
+                        
+                            <span class="variable">plt</span>.<span class="function">plot</span>(<span class="variable">temperature</span>, <span class="variable">sales</span>, <span class="value">'o'</span>)
+                            <br><span class="variable">plt</span>.<span class="function">plot</span>(<span class="variable">temperature</span>, <span class="variable">sales_predict</span>)
+                            <br><span class="variable">plt</span>.<span class="function">show</span>()
+                            </code>
+                        </pre>
+
+                        <br>
+                        <p>* While studying this course, I had to create a project for one of my Master's classes, and I chose to create a Convolutional Neural Network:</p>
                         <br>
                         <p><b>Project</b>:</p>
                         <div class="project">
@@ -89,6 +372,12 @@
                                 <p>A Convolutional Neural Network that detects pneumonia from x-ray lung images, and a Flask application.<br>* While it is not a Linear Regression Model, this was my first Machine Learning Project.</p>
                             </div>
                         </div>
+
+                        <br>
+                        <h3>Up to date.</h3>
+                        <br>
+
+                        <p><b>Multiple Linear Regression</b>: // to be continued.</p>
                     </div>
                 </div>
             </div>

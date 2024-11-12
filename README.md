@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.0.1alpha-orange" alt="Version Badge">
+  <img src="https://img.shields.io/badge/version-0.0.2alpha-orange" alt="Version Badge">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License Badge">
   <img src="https://img.shields.io/badge/build-passing-brightgreen" alt="Build Status">
 </p>
