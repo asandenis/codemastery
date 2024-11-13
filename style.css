@@ -263,6 +263,7 @@ body {
 
 .project-content a, p {
     margin: 0;
+    max-width: 1100px;
 }
 
 .project-content a {
