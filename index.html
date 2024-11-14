@@ -504,6 +504,175 @@
                                 <a href="https://github.com/asandenis/codecademy-projects/tree/main/Machine%20Learning%20%26%20AI%20Engineer%20Course/TennisAce" target="_blank"><p><b>TennisAce</b>: A couple of Linear Regression and Multiple Linear Regression models that predict the ammount of winnings a tennis player will have based on different independent variables.</p></a>
                             </div>
                         </div>
+
+                        <br>
+
+                        <p><b>Logistic Regression</b>: refers to a supervised Machine Learning algorithm that predicts the probability, ranging from 0 to 1, of a datapoint belonging to a specific category, or class. These probabilities can then be used to assign, or classify, observations to the more probable group.</p>
+
+                        <br>
+
+                        <p>Example usages include predicting if an email is spam or not, if a tumor is malignant or not, or if a visitor would turn into a customer or not. It is primarily used for classification.</p>
+
+                        <br>
+
+                        <p>The mathematical formula behind logistic regression starts from the linear regression function, and applies a <i>logit link function</i> to the left-hand side, as such:</p>
+
+                        <p id="math">ln(
+                            <math>
+                                <mfrac>
+                                  <mn>7</mn>
+                                  <mi>(1-y)</mi>
+                                </mfrac>
+                            </math>
+                        )=b₀ + b₁x₁ + b₂x₂ + ... + bₙxₙ</p>
+                        
+                        <br>
+
+                        <p>The right-hand side:</p>
+                        <p id="math">ln(p/(1-p))</p>
+                        <p>where p is the probability, is called a <i>log-odd</i>, because it is the natural logarithm of the probability.</p>
+
+                        <p><b>Example:</b></p>
+                        <p id="math">p=0.7 => 
+                            <math>
+                                <mfrac>
+                                  <mn>p</mn>
+                                  <mi>(1-p)</mi>
+                                </mfrac>
+                            </math> = 
+                            <math>
+                                <mfrac>
+                                  <mn>0.7</mn>
+                                  <mi>0.3</mi>
+                                </mfrac>
+                            </math>≈ 2.33</p>
+                        <p>This means that the event A (with probability p) is 2.33 times more likely to happen than not happen.</p>
+
+                        <br>
+
+                        <p>The natural logarithm in the log-odd transformation helps in converting this ratio (always positive) into a real number that can vary from negative to positive infinity. This enables logistic regression to interpret and handle binary classification.</p>
+
+                        <br>
+
+                        <p>As we want to find the probability itself, we have to adjust the function to calculate <i>p</i>. In order to do this, we need to apply the inverse of the logit function, which is the <i>Sigmoid function</i>. When plotted, this function will have an S-shaped curve between 0 and 1, representing probabilities.</p>
+
+                        <p><b>The coefficients of the model</b> can be interpreted as follows:</p>
+                        <ul>
+                            <li><p><b>Large positive coefficient</b>: a one-unit increase in this feature is associated with a large increase in the log odds (and therefore probability) of a data point belonging to the positive class (the outcome group labeled as 1).</p></li>
+                            <li><p><b>Large negative coefficient</b>: a one-unit increase in this feature is associated with a large decrease in the log odds/probability of belonging to the positive class.</p></li>
+                            <li><p><b>Coefficient of 0</b>: the feature is not associated with the outcome.</p></li>
+                        </ul>
+
+                        <p>Creating and fitting a Logistic Regression model using scikit-learn:</p>
+                        <pre class="code-block">
+                            <code>
+                                <span class="keyword">from</span> <span class="variable">sklearn.linear_model</span> <span class="keyword">import</span> <span class="variable">LogisticRegression</span>
+                                <br><span class="variable">model</span> = <span class="variable">LogisticRegression</span>()
+                                <br><br>
+                                <span class="variable">model</span>.<span class="function">fit</span>(<span class="variable">features</span>, <span class="variable">labels</span>)
+                            </code>
+                        </pre>
+
+                        <p>Getting the coefficient(s) and the intercept:</p>
+                        <pre class="code-block">
+                            <code>
+                                <span class="variable">model</span>.<span class="variable">coef_</span>  # This is a vector of the coefficients of each feature.
+                                <br><span class="variable">model</span>.<span class="variable">intercept_</span>
+                            </code>
+                        </pre>
+
+                        <p>Prediction can be done using the <i>.predict()</i> function, which returns the predicted category (1 or 0), or the <i>.predict_proba()</i> function (which gives you the probability itself).</p>
+
+                        <br>
+
+                        <p>By default, scikit-learn uses a threshold of 0.5. If a predicted probability is greater than or equal to 0.5, the entity is classified as '1' (positive class); otherwise, it is classified as '0' (negative class).</p>
+
+                        <pre class="code-block">
+                            <code>
+                                <span class="variable">model</span>.<span class="function">predict</span>(<span class="variable">features</span>)
+                                <br><span class="variable">model</span>.<span class="function">predict_proba</span>(<span class="variable">features</span>)
+                            </code>
+                        </pre>
+
+                        <p>To adjust the threshold, you can specify a custom threshold as follows:</p>
+
+                        <pre class="code-block">
+                            <code>
+                                <span class="variable">threshold</span> = <span class="value">0.9</span> <span class="comment"># Setting a 90% threshold.</span>
+                                <br><span class="variable">model</span>.<span class="function">predict_proba</span>(<span class="variable">features</span>)[:, <span class="value">1</span>] >= <span class="variable">threshold</span>
+                            </code>
+                        </pre>
+
+                        <p>In order to evaluate the model, we can use the following methods:</p>
+                        <ul>
+                            <li><b>Confusion matrix</b>: which tells us how many true-negatives, false-negatives, true-positives, and false-positives the model returns, based on the test dataset (the y_test, and the predictions returned by the model).</li>
+                            <pre class="code-block">
+                                <code>
+                                    <span class="keyword">from</span> <span class="variable">sklearn.metrics</span> <span class="keyword">import</span> <span class="variable">confusion_matrix</span>
+                                    <br><span class="variable">confusion_matrix</span>(<span class="variable">y_test</span>, <span class="variable">y_pred</span>)
+                                </code>
+                            </pre>
+                            <p>The main diagonal are the true-negatives and true-positives, therefore we want the numbers of the main diagonal to be as high as possible, while the ones from the secondary diagonal should be as low as possible for the model to perform well.</p>
+                            
+                            <li><b>Confusion matrix statistical measurements</b>:</li>
+                            <ol>
+                                <li>
+                                    <p><b>Accuracy</b>:</p>
+                                    <p id="math">
+                                        <math>
+                                            <mfrac>
+                                              <mn>(TP + TN)</mn>
+                                              <mi>(TP + FP + TN + FN)</mi>
+                                            </mfrac>
+                                        </math>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><b>Precision</b>:</p>
+                                    <p id="math">
+                                        <math>
+                                            <mfrac>
+                                              <mn>TP</mn>
+                                              <mi>(TP + FP)</mi>
+                                            </mfrac>
+                                        </math>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p><b>Recall</b>:</p>
+                                    <p id="math">
+                                        <math>
+                                            <mfrac>
+                                              <mn>TP</mn>
+                                              <mi>(TP + FN)</mi>
+                                            </mfrac>
+                                        </math>
+                                    </p>
+                                </li>
+                                <li><p><b>F1 score</b>: weighted average of precision and recall.</p></li>
+                            </ol>
+                            <p>where TP is true positive, TN is true negative, FP is false positive, and FN is false negative.</p>
+
+                            <br>
+
+                            <p>To use them inside of scikit-learn we can write the following code:</p>
+
+                            <pre class="code-block">
+                                <code>
+                                    <span class="keyword">from</span> <span class="variable">sklearn.metrics</span> <span class="keyword">import</span> <span class="variable">accuracy_score</span>
+                                    <br><span class="variable">accuracy_score</span>(<span class="variable">y_test</span>, <span class="variable">y_pred</span>)
+                                    <br><br>
+                                    <span class="keyword">from</span> <span class="variable">sklearn.metrics</span> <span class="keyword">import</span> <span class="variable">precision_score</span>
+                                    <br><span class="variable">precision_score</span>(<span class="variable">y_test</span>, <span class="variable">y_pred</span>)
+                                    <br><br>
+                                    <span class="keyword">from</span> <span class="variable">sklearn.metrics</span> <span class="keyword">import</span> <span class="variable">recall_score</span>
+                                    <br><span class="variable">recall_score</span>(<span class="variable">y_test</span>, <span class="variable">y_pred</span>)
+                                    <br><br>
+                                    <span class="keyword">from</span> <span class="variable">sklearn.metrics</span> <span class="keyword">import</span> <span class="variable">f1_score</span>
+                                    <br><span class="variable">f1_score</span>(<span class="variable">y_test</span>, <span class="variable">y_pred</span>)
+                                </code>
+                            </pre>
+                        </ul>
                     </div>
                 </div>
             </div>
